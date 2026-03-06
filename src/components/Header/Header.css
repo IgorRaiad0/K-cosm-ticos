@@ -1,0 +1,73 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.5rem 8%;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header.scrolled {
+    padding: 0.8rem 8%;
+    background: rgba(12, 12, 12, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-logo img {
+    height: 45px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.header.scrolled .header-logo img {
+    height: 38px;
+}
+
+.header-nav ul {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+}
+
+.header-nav a {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.header-nav a:hover {
+    opacity: 1;
+    color: var(--primary);
+}
+
+.btn-header-primary {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background-color: var(--primary);
+    color: #000;
+    border-radius: 4px;
+}
+
+@media (max-width: 992px) {
+    .header-nav {
+        display: none;
+        /* Simplificando para o exemplo, mobile menu viria depois */
+    }
+}
