@@ -3,7 +3,7 @@ import './Hero.css';
 import heroVideo from '../../assets/hero-premium.mp4';
 import logo from '../../assets/logo.png';
 
-const Hero = () => {
+const Hero = ({ isLoading }) => {
     return (
         <section className="hero">
             <div className="hero-video-container">
@@ -22,7 +22,7 @@ const Hero = () => {
 
             <div className="hero-content">
                 <div className="hero-text-wrapper">
-                    <div className="hero-brand">
+                    <div className="hero-brand" style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.3s ease 1.2s' }}>
                         <h1 className="hero-logo-container">
                             <img src={logo} alt="K Cosméticos Logo" className="hero-logo" />
                         </h1>

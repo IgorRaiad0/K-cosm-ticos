@@ -1,0 +1,102 @@
+.preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.preloader-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0c0c0c;
+    transition: transform 1s cubic-bezier(0.8, 0, 0.2, 1);
+    z-index: 1;
+}
+
+.preloader.exit .preloader-bg {
+    transform: translateY(-100%);
+}
+
+.preloader-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.logo-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+.preloader-logo {
+    width: 300px;
+    height: auto;
+    filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.3));
+    animation: pulseLogo 2s ease-in-out infinite;
+    transition: all 1.2s cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+@keyframes pulseLogo {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.2));
+    }
+
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 40px rgba(212, 175, 55, 0.4));
+    }
+}
+
+/* Animação de saída para a posição do logo no Hero */
+.preloader.exit .logo-wrapper {
+    top: 50%;
+    left: 8%;
+    transform: translate(0, -180px);
+    /* Ajuste fino para alinhar com o topo do hero-content centralizado */
+}
+
+.preloader.exit .preloader-logo {
+    width: 350px;
+    /* Mesma largura do .hero-logo */
+    height: auto;
+    animation: none;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+    /* Mesma sombra do Hero */
+}
+
+@media (max-width: 768px) {
+    .preloader.exit .logo-wrapper {
+        left: 50%;
+        transform: translate(-50%, -150px);
+    }
+
+    .preloader.exit .preloader-logo {
+        width: 250px;
+    }
+}
+
+/* Quando terminar a animação, escondemos o preloader todo */
+.preloader.exit {
+    visibility: hidden;
+    transition: visibility 0s 1.2s;
+}

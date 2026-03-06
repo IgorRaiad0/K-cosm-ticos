@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/logo.png';
 
-const Header = () => {
+const Header = ({ isLoading }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const location = useLocation();
@@ -23,7 +23,12 @@ const Header = () => {
     return (
         <header className={`header ${isScrolled || location.pathname !== '/' ? 'scrolled' : ''} ${isMenuOpen ? 'mobile-menu-active' : ''}`}>
             <div className="header-container">
-                <Link to="/" className="header-logo" onClick={() => setIsMenuOpen(false)}>
+                <Link
+                    to="/"
+                    className="header-logo"
+                    onClick={() => setIsMenuOpen(false)}
+                    style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.3s ease 1.2s' }}
+                >
                     <img src={logo} alt="K-Cosméticos Logo" />
                 </Link>
 

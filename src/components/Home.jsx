@@ -8,10 +8,10 @@ import WorkWithUs from './WorkWithUs/WorkWithUs';
 import Location from './Location/Location';
 import Contact from './Contact/Contact';
 
-const Home = () => {
+const Home = ({ isLoading }) => {
     return (
         <>
-            <Hero />
+            <Hero isLoading={isLoading} />
             <Suppliers />
             <Showcase />
             <Products />
