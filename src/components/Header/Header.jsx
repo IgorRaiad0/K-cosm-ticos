@@ -4,6 +4,7 @@ import logo from '../../assets/logo.png';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -13,25 +14,31 @@ const Header = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
     return (
-        <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
+        <header className={`header ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
             <div className="header-container">
                 <div className="header-logo">
                     <img src={logo} alt="K Cosméticos Logo" />
                 </div>
 
-                <nav className="header-nav">
+                <button className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu} aria-label="Menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+                <nav className={`header-nav ${isMenuOpen ? 'active' : ''}`}>
                     <ul>
-                        <li><a href="#home">Início</a></li>
-                        <li><a href="#produtos">Produtos</a></li>
-                        <li><a href="#sobre">Sobre</a></li>
-                        <li><a href="#contato">Contato</a></li>
+                        <li><a href="#home" onClick={() => setIsMenuOpen(false)}>Início</a></li>
+                        <li><a href="#produtos" onClick={() => setIsMenuOpen(false)}>Produtos</a></li>
+                        <li><a href="#sobre" onClick={() => setIsMenuOpen(false)}>Sobre</a></li>
+                        <li><a href="#contato" onClick={() => setIsMenuOpen(false)}>Contato</a></li>
                     </ul>
                 </nav>
-
-                <div className="header-actions">
-                    <button className="btn-header-primary">Comprar Agora</button>
-                </div>
             </div>
         </header>
     );

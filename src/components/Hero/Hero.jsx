@@ -41,6 +41,7 @@ const Hero = () => {
                 </div>
                 <span>Deslize</span>
             </div>
+            <div className="hero-bottom-blur"></div>
         </section>
     );
 };
