@@ -3,6 +3,7 @@ import Header from './components/Header/Header';
 import Home from './components/Home';
 import Marketplace from './components/Marketplace/Marketplace';
 import ScrollToHash from './components/ScrollToHash';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/marketplace" element={<Marketplace />} />
         </Routes>
-        {/* Outras sessões virão aqui */}
+        <Footer />
       </main>
     </Router>
   );
