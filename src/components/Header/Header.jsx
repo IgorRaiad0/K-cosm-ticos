@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 import logo from '../../assets/logo.png';
 
 const Header = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -19,22 +21,23 @@ const Header = () => {
     };
 
     return (
-        <header className={`header ${isScrolled ? 'scrolled' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
+        <header className={`header ${isScrolled || location.pathname !== '/' ? 'scrolled' : ''} ${isMenuOpen ? 'mobile-menu-active' : ''}`}>
             <div className="header-container">
-                <div className="header-logo">
-                    <img src={logo} alt="K Cosméticos Logo" />
-                </div>
+                <Link to="/" className="header-logo" onClick={() => setIsMenuOpen(false)}>
+                    <img src={logo} alt="K-Cosméticos Logo" />
+                </Link>
 
-                <button className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu} aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
                 </button>
 
-                <nav className={`header-nav ${isMenuOpen ? 'active' : ''}`}>
+                <nav className="header-nav">
                     <ul>
-                        <li><a href="#home" onClick={() => setIsMenuOpen(false)}>Início</a></li>
+                        <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Início</Link></li>
                         <li><a href="#produtos" onClick={() => setIsMenuOpen(false)}>Produtos</a></li>
+                        <li><Link to="/marketplace" onClick={() => setIsMenuOpen(false)}>Vitrine</Link></li>
                         <li><a href="#sobre" onClick={() => setIsMenuOpen(false)}>Sobre</a></li>
                         <li><a href="#contato" onClick={() => setIsMenuOpen(false)}>Contato</a></li>
                     </ul>

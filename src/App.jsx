@@ -1,20 +1,21 @@
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header/Header';
-import Hero from './components/Hero/Hero';
-import Suppliers from './components/Suppliers/Suppliers';
-import Showcase from './components/Showcase/Showcase';
-import Products from './components/Products/Products';
+import Home from './components/Home';
+import Marketplace from './components/Marketplace/Marketplace';
 import './App.css';
 
 function App() {
   return (
-    <main>
-      <Header />
-      <Hero />
-      <Suppliers />
-      <Showcase />
-      <Products />
-      {/* Outras sessões virão aqui */}
-    </main>
+    <Router>
+      <main>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/marketplace" element={<Marketplace />} />
+        </Routes>
+        {/* Outras sessões virão aqui */}
+      </main>
+    </Router>
   );
 }
 

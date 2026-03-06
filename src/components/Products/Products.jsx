@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Products.css';
 
 const Products = () => {
@@ -111,6 +112,12 @@ const Products = () => {
                     <button className="carousel-btn next" onClick={nextSlide} aria-label="Próximo">
                         <span>&#8250;</span>
                     </button>
+                </div>
+
+                <div className="products-footer">
+                    <Link to="/marketplace" className="btn-view-all">
+                        Ver todos os Produtos
+                    </Link>
                 </div>
             </div>
         </section>
