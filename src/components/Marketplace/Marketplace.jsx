@@ -1,28 +1,24 @@
 import React, { useState, useMemo } from 'react';
 import { Search } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
+import { useProducts } from '../../hooks/useProducts';
 import './Marketplace.css';
+
+const SHEET_URL = import.meta.env.VITE_SHEET_URL;
 
 const Marketplace = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Todos');
     const { addToCart } = useCart();
+    const { products, loading, error } = useProducts(SHEET_URL);
 
-    // Dados expandidos para o Marketplace
-    const productsList = [
+    // Dados expandidos para o Marketplace (Fallback)
+    const fallbackProducts = [
         { id: 1, name: "Sérum Facial Iluminador", price: "R$ 129,90", category: "Skincare", tag: "Best Seller" },
-        { id: 2, name: "Batom Matte Velvet Lux", price: "R$ 64,90", category: "Maquiagem", tag: "Novo" },
-        { id: 3, name: "Perfume Essência Gold", price: "R$ 249,00", category: "Fragrâncias", tag: "Premium" },
-        { id: 4, name: "Máscara Capilar Nutritiva", price: "R$ 89,90", category: "Cabelos", tag: "Natural" },
-        { id: 5, name: "Tônico Facial Purificante", price: "R$ 79,90", category: "Skincare", tag: "Novo" },
-        { id: 6, name: "Óleo Corporal Radiance", price: "R$ 159,00", category: "Corpo", tag: "Premium" },
-        { id: 7, name: "Escova de Cabelo Ergonômica", price: "R$ 45,00", category: "Acessórios", tag: "Essencial" },
-        { id: 8, name: "Kit Piranhas Color", price: "R$ 25,00", category: "Acessórios", tag: "Promo" },
-        { id: 9, name: "Base Fluida Alta Cobertura", price: "R$ 85,00", category: "Maquiagem", tag: "Novo" },
-        { id: 10, name: "Creme de Mãos Karité", price: "R$ 35,00", category: "Corpo", tag: "Natural" },
-        { id: 11, name: "Condicionador Revitalizante", price: "R$ 55,00", category: "Cabelos", tag: "Natural" },
-        { id: 12, name: "Gloss Labial 3D", price: "R$ 39,90", category: "Maquiagem", tag: "Pop" },
+        // ... outros produtos simplificados
     ];
+
+    const productsList = products.length > 0 ? products : fallbackProducts;
 
     const categories = ['Todos', 'Skincare', 'Maquiagem', 'Fragrâncias', 'Cabelos', 'Corpo', 'Acessórios'];
 
@@ -67,13 +63,19 @@ const Marketplace = () => {
                 </div>
 
                 <div className="marketplace-grid">
-                    {filteredProducts.length > 0 ? (
+                    {loading ? (
+                        <div className="loading-state">Carregando produtos...</div>
+                    ) : filteredProducts.length > 0 ? (
                         filteredProducts.map(product => (
                             <div className="marketplace-card" key={product.id}>
                                 <div className="product-image-container">
-                                    <div className="product-placeholder">
-                                        <span>{product.category}</span>
-                                    </div>
+                                    {product.image ? (
+                                        <img src={product.image} alt={product.name} className="product-img" />
+                                    ) : (
+                                        <div className="product-placeholder">
+                                            <span>{product.category}</span>
+                                        </div>
+                                    )}
                                     {product.tag && <span className="product-tag">{product.tag}</span>}
                                     <div className="product-overlay">
                                         <button

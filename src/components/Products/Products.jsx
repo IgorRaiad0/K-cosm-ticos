@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
+import { useProducts } from '../../hooks/useProducts';
 import './Products.css';
+
+// URL da planilha vinda das variáveis de ambiente
+const SHEET_URL = import.meta.env.VITE_SHEET_URL;
 
 const Products = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const { addToCart } = useCart();
+    const { products, loading, error } = useProducts(SHEET_URL);
 
-    // Dados de exemplo para o catálogo
-    const productsList = [
+    // Lista fallback para caso a planilha não carregue ou enquanto não houver URL
+    const fallbackProducts = [
         {
             id: 1,
             name: "Sérum Facial Iluminador",
@@ -16,42 +21,10 @@ const Products = () => {
             category: "Skincare",
             tag: "Best Seller"
         },
-        {
-            id: 2,
-            name: "Batom Matte Velvet Lux",
-            price: "R$ 64,90",
-            category: "Maquiagem",
-            tag: "Novo"
-        },
-        {
-            id: 3,
-            name: "Perfume Essência Gold",
-            price: "R$ 249,00",
-            category: "Fragrâncias",
-            tag: "Premium"
-        },
-        {
-            id: 4,
-            name: "Máscara Capilar Nutritiva",
-            price: "R$ 89,90",
-            category: "Cabelos",
-            tag: "Natural"
-        },
-        {
-            id: 5,
-            name: "Tônico Facial Purificante",
-            price: "R$ 79,90",
-            category: "Skincare",
-            tag: "Novo"
-        },
-        {
-            id: 6,
-            name: "Óleo Corporal Radiance",
-            price: "R$ 159,00",
-            category: "Corpo",
-            tag: "Premium"
-        }
+        // ... outros produtos simplificados se necessário
     ];
+
+    const productsList = products.length > 0 ? products : fallbackProducts;
 
     const nextSlide = () => {
         if (currentIndex < productsList.length - 1) {
@@ -90,12 +63,18 @@ const Products = () => {
                             className="products-track"
                             style={{ transform: `translateX(-${currentIndex * (310)}px)` }}
                         >
-                            {productsList.map((product) => (
+                            {loading ? (
+                                <div className="loading-carousel">Carregando catálogo...</div>
+                            ) : productsList.map((product) => (
                                 <div className="product-card" key={product.id}>
                                     <div className="product-image-container">
-                                        <div className="product-placeholder">
-                                            <span>{product.category}</span>
-                                        </div>
+                                        {product.image ? (
+                                            <img src={product.image} alt={product.name} className="product-img" />
+                                        ) : (
+                                            <div className="product-placeholder">
+                                                <span>{product.category}</span>
+                                            </div>
+                                        )}
                                         {product.tag && <span className="product-tag">{product.tag}</span>}
                                         <div className="product-overlay">
                                             <button

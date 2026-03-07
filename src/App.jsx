@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import Preloader from './components/Preloader/Preloader';
 import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
+import { ProductProvider } from './context/ProductContext';
 import './App.css';
 
 function App() {
@@ -22,21 +23,23 @@ function App() {
   }, []);
 
   return (
-    <CartProvider>
-      <Router>
-        <Preloader isLoading={isLoading} />
-        <Cart />
-        <ScrollToHash />
-        <main style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease 1s' }}>
-          <Header isLoading={isLoading} />
-          <Routes>
-            <Route path="/" element={<Home isLoading={isLoading} />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-          </Routes>
-          <Footer />
-        </main>
-      </Router>
-    </CartProvider>
+    <ProductProvider>
+      <CartProvider>
+        <Router>
+          <Preloader isLoading={isLoading} />
+          <Cart />
+          <ScrollToHash />
+          <main style={{ opacity: isLoading ? 0 : 1, transition: 'opacity 0.5s ease 1s' }}>
+            <Header isLoading={isLoading} />
+            <Routes>
+              <Route path="/" element={<Home isLoading={isLoading} />} />
+              <Route path="/marketplace" element={<Marketplace />} />
+            </Routes>
+            <Footer />
+          </main>
+        </Router>
+      </CartProvider>
+    </ProductProvider>
   );
 }
 

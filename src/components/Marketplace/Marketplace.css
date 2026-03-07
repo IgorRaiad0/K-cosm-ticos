@@ -146,6 +146,20 @@
     }
 }
 
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.loading-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: var(--primary);
+}
+
 /* Product Overlay Styles para Vitrine */
 .marketplace-card .product-image-container {
     position: relative;
