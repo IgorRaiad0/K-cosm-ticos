@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 import './Products.css';
 
 const Products = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { addToCart } = useCart();
 
     // Dados de exemplo para o catálogo
     const productsList = [
@@ -96,7 +98,12 @@ const Products = () => {
                                         </div>
                                         {product.tag && <span className="product-tag">{product.tag}</span>}
                                         <div className="product-overlay">
-                                            <button className="btn-add">Adicionar ao Carrinho</button>
+                                            <button
+                                                className="btn-add"
+                                                onClick={() => addToCart(product)}
+                                            >
+                                                Adicionar ao Carrinho
+                                            </button>
                                         </div>
                                     </div>
                                     <div className="product-info">

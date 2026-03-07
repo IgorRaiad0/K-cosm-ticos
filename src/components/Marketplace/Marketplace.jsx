@@ -1,10 +1,12 @@
 import React, { useState, useMemo } from 'react';
 import { Search } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
 import './Marketplace.css';
 
 const Marketplace = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('Todos');
+    const { addToCart } = useCart();
 
     // Dados expandidos para o Marketplace
     const productsList = [
@@ -74,7 +76,12 @@ const Marketplace = () => {
                                     </div>
                                     {product.tag && <span className="product-tag">{product.tag}</span>}
                                     <div className="product-overlay">
-                                        <button className="btn-add">Adicionar ao Carrinho</button>
+                                        <button
+                                            className="btn-add"
+                                            onClick={() => addToCart(product)}
+                                        >
+                                            Adicionar ao Carrinho
+                                        </button>
                                     </div>
                                 </div>
                                 <div className="product-info">

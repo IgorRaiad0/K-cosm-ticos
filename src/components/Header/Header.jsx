@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { ShoppingBag } from 'lucide-react';
+import { useCart } from '../../context/CartContext';
 import './Header.css';
 import logo from '../../assets/logo.png';
 
 const Header = ({ isLoading }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { cartCount, setIsCartOpen } = useCart();
     const location = useLocation();
 
     useEffect(() => {
@@ -32,12 +35,6 @@ const Header = ({ isLoading }) => {
                     <img src={logo} alt="K-Cosméticos Logo" />
                 </Link>
 
-                <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                    <span className="bar"></span>
-                </button>
-
                 <nav className="header-nav">
                     <ul>
                         <li><Link to="/" onClick={() => setIsMenuOpen(false)}>Início</Link></li>
@@ -48,6 +45,19 @@ const Header = ({ isLoading }) => {
                         <li><Link to="/#contato" onClick={() => setIsMenuOpen(false)}>Contato</Link></li>
                     </ul>
                 </nav>
+
+                <div className="header-actions">
+                    <button className="header-cart-btn" onClick={() => setIsCartOpen(true)}>
+                        <ShoppingBag size={22} />
+                        {cartCount > 0 && <span className="header-cart-count">{cartCount}</span>}
+                    </button>
+
+                    <button className="menu-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                    </button>
+                </div>
             </div>
         </header>
     );
